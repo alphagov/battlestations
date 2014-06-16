@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
+
+	"github.com/alphagov/battlestations/api"
 )
 
 var (
@@ -10,7 +13,17 @@ var (
 )
 
 func main() {
+
 	flag.Parse()
 
-	log.Println(*configPath)
+	err, config := ParseConfig(*configPath)
+
+	if err != nil {
+		log.Printf("Failed to read config from %s", *configPath)
+		log.Println(err)
+	} else {
+		log.Printf("API starting at http://%s", config.Addr)
+		http.ListenAndServe(config.Addr, api.MakeRouter())
+	}
+
 }
