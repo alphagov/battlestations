@@ -1,6 +1,23 @@
 
 A Golang web app to manage deployment of applications into the GOV.UK infrastructure.
 
+# Running locally
+
+## Dependencies
+
+  - [Go 1.2.2](http://golang.org/doc/install)
+
+## Configuration
+
+An example configuration file is provided, [config.json.example](https://github.com/alphagov/battlestations/blob/master/config.json.example), and the structure is defined in [config.go](https://github.com/alphagov/battlestations/blob/master/config.go). Copy this to config.json and edit the values as required.
+
+## Building
+
+```
+$ make              # This will get the deps, run the tests and build the executable
+$ ./battlestations
+```
+
 # Why?
 
 We are unable to give permission to our deployment Jenkins instances to a significant subset
