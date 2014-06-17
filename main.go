@@ -2,11 +2,14 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/alphagov/battlestations/api"
+	"github.com/alphagov/battlestations/github"
 )
 
 var (
@@ -25,9 +28,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	githubService := github.NewOAuthService(
+		fmt.Sprintf("%s/authorized", config.BaseURL),
+		config.Github,
+	)
+
+	authKey, _ := ioutil.ReadFile(config.AuthKey)
+	encKey, _ := ioutil.ReadFile(config.EncKey)
+
 	log.Printf("API starting at http://%s", config.Addr)
 	http.ListenAndServe(
 		config.Addr,
-		api.MakeRouter())
+		api.MakeRouter(authKey, encKey, githubService))
 
 }

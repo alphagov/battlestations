@@ -3,10 +3,17 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+
+	"github.com/alphagov/battlestations/github"
 )
 
 type BattlestationsConfig struct {
-	Addr string
+	Addr    string `json:"addr"`
+	AuthKey string `json:"auth_key"`
+	EncKey  string `json:"enc_key"`
+	BaseURL string `json:"base_url"`
+
+	Github github.Config `json:"github"`
 }
 
 func ParseConfig(path string) (error, BattlestationsConfig) {

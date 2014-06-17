@@ -1,3 +1,11 @@
 {
-  "addr": "127.0.0.1:8080"
+  "addr": "127.0.0.1:8080",
+  "auth_key": "./auth.key",
+  "enc_key": "./enc.key",
+  "base_url": "http://battlestations.local",
+  "github": {
+    "client_id": "[OAUTH_CLIENT_ID]",
+    "client_secret": "[OAUTH_CLIENT_SECRET]"
+    "organisation": "alphagov"
+  }
 }
