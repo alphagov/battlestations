@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/alphagov/battlestations/api"
 )
@@ -21,9 +22,12 @@ func main() {
 	if err != nil {
 		log.Printf("Failed to read config from %s", *configPath)
 		log.Println(err)
-	} else {
-		log.Printf("API starting at http://%s", config.Addr)
-		http.ListenAndServe(config.Addr, api.MakeRouter())
+		os.Exit(1)
 	}
+
+	log.Printf("API starting at http://%s", config.Addr)
+	http.ListenAndServe(
+		config.Addr,
+		api.MakeRouter())
 
 }
