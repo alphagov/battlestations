@@ -6,17 +6,45 @@ A Golang web app to manage deployment of applications into the GOV.UK infrastruc
 ## Dependencies
 
   - [Go 1.2.2](http://golang.org/doc/install)
+  - Mercurial `brew install hg`
 
-## Configuration
+## Getting started
 
-An example configuration file is provided, [config.json.example](https://github.com/alphagov/battlestations/blob/master/config.json.example), and the structure is defined in [config.go](https://github.com/alphagov/battlestations/blob/master/config.go). Copy this to config.json and edit the values as required.
+  1. The first stop is tweaking the [example configuration](https://github.com/alphagov/battlestations/blob/master/config.json.example):
 
-## Building
+     ```
+     $ cp config.json.example config.json
+     $ vim config.json                         # Add in a client id and secret
+     ```
 
-```
-$ make              # This will get the deps, run the tests and build the executable
-$ ./battlestations
-```
+     You need to setup a new [Github application](https://github.com/settings/applications/new) to get a client id and secret. Use http://battlestations.local/authorized as the 'Authorization callback URL'.
+
+  2. (optional) In order for http://battlestations.local to work without proxying you can route port 80 through to 8080 with ipfw:
+
+     ```
+     $ sudo ipfw add 100 fwd 127.0.0.1,8080 tcp from any to any 80 in
+     ```
+
+  3. Add http://battlestations.local to your /etc/hosts file
+
+     ```
+     $ sudo sh -c "echo \"127.0.0.1 battlestations.local\" >> /etc/hosts"
+     ```
+
+  4. To generate a set of keys for use with the session cookies run:
+
+     ```
+     $ make keys
+     ```
+
+  5. Build and run battlestations:
+
+     ```
+     $ make              # This will get the deps, run the tests and build the executable
+     $ ./battlestations
+     ```
+
+  6. Now open a browser and navigate to http://battlestations.local.
 
 # Why?
 
