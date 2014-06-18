@@ -87,7 +87,7 @@ If the deployment was rejected
 If the deployment was accepted
   - Store the accepting user against the original deployment request
   - Generate an expiring one time identifier which references deployment
-  - Email original user with a link to start the deployment and when there slot will expire
+  - Email original user with a link to start the deployment and when their slot will expire
 
 User wants to start the deployment
   - Clicks the link in their email
