@@ -33,8 +33,21 @@ func main() {
 		config.Github,
 	)
 
-	authKey, _ := ioutil.ReadFile(config.AuthKey)
-	encKey, _ := ioutil.ReadFile(config.EncKey)
+	authKey, err := ioutil.ReadFile(config.AuthKey)
+
+	if err != nil {
+		log.Printf("Failed to read auth key from %s", config.AuthKey)
+		log.Println(err)
+		os.Exit(1)
+	}
+
+	encKey, err := ioutil.ReadFile(config.EncKey)
+
+	if err != nil {
+		log.Printf("Failed to read enc key from %s", config.EncKey)
+		log.Println(err)
+		os.Exit(1)
+	}
 
 	log.Printf("API starting at http://%s", config.Addr)
 	http.ListenAndServe(
